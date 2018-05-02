@@ -53,5 +53,23 @@ firmware_size(${PROJECT_NAME})
 # Generate Object additionally
 generate_object(${PROJECT_NAME} .hex ihex)
 
+# Generate Object additionally
+generate_object(${PROJECT_NAME} .bin binary)
+
 # Generate Lst
 generate_lst(${PROJECT_NAME})
+
+# Configure flasher script for the project
+set(BINARY ${PROJECT_NAME}.bin)
+set(FLASH_START 0x08000000)
+
+# ST-Link flash command
+add_custom_target(flash 
+	COMMAND st-flash --reset write ${BINARY} ${FLASH_START}
+	DEPENDS ${PROJECT_NAME}
+	)
+
+# ST-Link erase command
+add_custom_target(erase 
+	COMMAND st-flash erase
+)
