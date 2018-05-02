@@ -13,10 +13,13 @@ set ( SOURCES
     "${CMAKE_SOURCE_DIR}/Device/startup_stm32f0xx.s"
     "${CMAKE_SOURCE_DIR}/src/system_stm32f0xx.c"
     "${CMAKE_SOURCE_DIR}/src/main.c"
+    "${CMAKE_SOURCE_DIR}/src/led.c"
+    "${CMAKE_SOURCE_DIR}/src/timer.c"
 )
 
 # The header includes
 include_directories( 
+    "${CMAKE_SOURCE_DIR}/inc"
     "${CMAKE_SOURCE_DIR}/Libraries"
     "${CMAKE_SOURCE_DIR}/Libraries/CMSIS/Include"
     "${CMAKE_SOURCE_DIR}/Libraries/CMSIS/Device/ST/STM32F0xx/Include"

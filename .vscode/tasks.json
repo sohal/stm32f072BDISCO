@@ -9,12 +9,14 @@
         {
             "label": "Flash ST-Link",
             "type": "shell",
-            "command": "make flash"
+            "command": "make flash",
+            "problemMatcher": []
         },
         {
-            "label" : "Erase ST-Link",
+            "label": "Erase ST-Link",
             "type": "shell",
-            "command": "make erase"
+            "command": "make erase",
+            "problemMatcher": []
         }
     ]
 }
