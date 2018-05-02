@@ -1,41 +1,12 @@
-
-
-// #include "stm32f0xx_conf.h"
-
-// void SysTick_Handler(void) {
-//   static uint16_t tick = 0;
-
-//   switch (tick++) {
-//   	case 100:
-//   		tick = 0;
-//   		GPIOC->ODR ^= (1 << 8);
-//   		break;
-//   }
-// }
-
-// int main(void)
-// {
-
-	// RCC->AHBENR |= RCC_AHBENR_GPIOCEN; 	// enable the clock to GPIOC
-	// 					//(RM0091 lists this as IOPCEN, not GPIOCEN)
-
-	// GPIOC->MODER = (1 << 16);
-
-	// SysTick_Config(SystemCoreClock/100);
-
-	// while(1);
-
-// }
-
 #include "timer.h"
 #include "led.h"
-//#include "usart1.h"
-
+#include "usart.h"
+#include "button.h"
 // ----- Timing definitions -------------------------------------------------
 
 // Keep the LED on for 2/3 of a second.
-#define BLINK_ON_TICKS  (TIMER_FREQUENCY_HZ * 3 / 4)
-#define BLINK_OFF_TICKS (TIMER_FREQUENCY_HZ - BLINK_ON_TICKS)
+static uint32_t BLINK_ON_TICKS 	= (TIMER_FREQUENCY_HZ * 3 / 4);
+static uint32_t BLINK_OFF_TICKS = (TIMER_FREQUENCY_HZ * 1 / 4);
 
 // ----- main() ---------------------------------------------------------------
 
@@ -46,12 +17,12 @@ main(int argc, char* argv[])
 	led_Init(GREEN);
 	led_Init(RED);
 	led_Init(ORANGE);
-//	usart1_Init();
-	// Infinite loop
+	usart_Init();
 	timer_start();
+	button_Init();
 
-//	uint8_t hi[] = "hello";
-//	usart1_Tx(hi, sizeof(hi));
+	uint8_t hi[] = "hello";
+	usart_Send(hi, sizeof(hi));
 
 	while (1)
 	{
@@ -65,6 +36,18 @@ main(int argc, char* argv[])
 		led_ON(BLUE);
 		led_ON(RED);
 		timer_sleep(BLINK_OFF_TICKS);
+		if(button_Status())
+		{
+			uint32_t temp = BLINK_OFF_TICKS;
+			BLINK_OFF_TICKS = BLINK_ON_TICKS;
+			BLINK_ON_TICKS = temp;
+			hi[0] = 's';
+			hi[1] = '0';
+			hi[2] = 'h';
+			hi[3] = 'a';
+			hi[4] = 'l';
+			usart_Send(hi, sizeof(hi));
+		}
 	}
 	// Infinite loop, never return.
 }

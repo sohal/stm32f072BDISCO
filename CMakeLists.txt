@@ -15,6 +15,8 @@ set ( SOURCES
     "${CMAKE_SOURCE_DIR}/src/main.c"
     "${CMAKE_SOURCE_DIR}/src/led.c"
     "${CMAKE_SOURCE_DIR}/src/timer.c"
+    "${CMAKE_SOURCE_DIR}/src/usart.c"
+    "${CMAKE_SOURCE_DIR}/src/button.c"
 )
 
 # The header includes

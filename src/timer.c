@@ -1,6 +1,5 @@
 
 #include "timer.h"
-//#include "cortexm/ExceptionHandlers.h"
 
 // ----------------------------------------------------------------------------
 

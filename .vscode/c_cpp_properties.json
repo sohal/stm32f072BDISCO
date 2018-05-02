@@ -39,6 +39,7 @@
                 "${workspaceFolder}/Libraries/STM32F0xx_StdPeriph_Driver/inc",
                 "${workspaceFolder}/Libraries/CMSIS/Device/ST/STM32F0xx/Include",
                 "${workspaceFolder}/Libraries/CMSIS/Include",
+                "${workspaceFolder}/inc",
                 "${workspaceFolder}/inc"
             ],
             "defines": [],
