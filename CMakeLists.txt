@@ -73,9 +73,11 @@ set(FLASH_START 0x08000000)
 add_custom_target(flash 
 	COMMAND st-flash --reset write ${BINARY} ${FLASH_START}
 	DEPENDS ${PROJECT_NAME}
-	)
+)
 
 # ST-Link erase command
 add_custom_target(erase 
 	COMMAND st-flash erase
+	DEPENDS ${PROJECT_NAME}
 )
+
