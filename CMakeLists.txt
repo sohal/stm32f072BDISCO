@@ -17,6 +17,7 @@ set ( SOURCES
     "${CMAKE_SOURCE_DIR}/src/timer.c"
     "${CMAKE_SOURCE_DIR}/src/usart.c"
     "${CMAKE_SOURCE_DIR}/src/button.c"
+    "${CMAKE_SOURCE_DIR}/src/spi.c"
 )
 
 # The header includes

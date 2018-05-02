@@ -2,6 +2,7 @@
 #include "led.h"
 #include "usart.h"
 #include "button.h"
+#include "spi.h"
 // ----- Timing definitions -------------------------------------------------
 
 // Keep the LED on for 2/3 of a second.
@@ -20,33 +21,22 @@ main(int argc, char* argv[])
 	usart_Init();
 	timer_start();
 	button_Init();
-
+	spi_Init();
 	uint8_t hi[] = "hello";
 	usart_Send(hi, sizeof(hi));
 
 	while (1)
 	{
 		led_ON(ORANGE);
-		led_ON(GREEN);
 		led_OFF(BLUE);
-		led_OFF(RED);
 		timer_sleep(BLINK_ON_TICKS);
 		led_OFF(ORANGE);
-		led_OFF(GREEN);
 		led_ON(BLUE);
-		led_ON(RED);
 		timer_sleep(BLINK_OFF_TICKS);
-		if(button_Status())
+		if(0U == spi_Recv(hi, 5))
 		{
-			uint32_t temp = BLINK_OFF_TICKS;
-			BLINK_OFF_TICKS = BLINK_ON_TICKS;
-			BLINK_ON_TICKS = temp;
-			hi[0] = 's';
-			hi[1] = '0';
-			hi[2] = 'h';
-			hi[3] = 'a';
-			hi[4] = 'l';
-			usart_Send(hi, sizeof(hi));
+			spi_Reset();
+			led_ON(RED);
 		}
 	}
 	// Infinite loop, never return.
