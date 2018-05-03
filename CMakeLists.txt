@@ -5,6 +5,16 @@ include(/home/p/.cmake/utils.cmake)
 # The name of the project
 project( myProject ASM C )
 
+# Defines for build
+option(ENABLE_TORQUE "Set to enabled if usart for torque sensor is used." OFF)
+option(ENABLE_PILOT  "Set to enabled if usart for pilot sensor is used."  ON)
+
+if(ENABLE_TORQUE)
+    add_definitions( -DSELECT_TORQUE )
+endif(ENABLE_TORQUE)
+if(ENABLE_PILOT)
+    add_definitions( -DSELECT_PILOT )
+endif(ENABLE_PILOT)
 # Add library for stm32peripherals
 add_subdirectory( Libraries )
 
@@ -17,7 +27,11 @@ set ( SOURCES
     "${CMAKE_SOURCE_DIR}/src/timer.c"
     "${CMAKE_SOURCE_DIR}/src/usart.c"
     "${CMAKE_SOURCE_DIR}/src/button.c"
-    "${CMAKE_SOURCE_DIR}/src/spi.c"
+    "${CMAKE_SOURCE_DIR}/src/bsp.c"
+    "${CMAKE_SOURCE_DIR}/src/flash.c"
+    "${CMAKE_SOURCE_DIR}/src/protocol.c"
+    "${CMAKE_SOURCE_DIR}/src/crc.c"
+    "${CMAKE_SOURCE_DIR}/src/can.c"
 )
 
 # The header includes

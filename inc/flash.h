@@ -1,24 +1,36 @@
 /******************************************************************************/
 /**
-* @file Spi1.h
-* @brief Implement SPI1
+* @file Flash.h
+* @brief Implement Flash driver
 *
 *******************************************************************************/
-#ifndef SPI1_H
-#define SPI1_H
+#ifndef FLASH_H
+#define FLASH_H
 
 /* ***************** Header / include files ( #include ) **********************/
-#include "stm32f0xx.h"
+#include <stdint.h>
+#include "crc.h"
 #include "common.h"
+#include "bsp.h"
 
 /* *************** Constant / macro definitions ( #define ) *******************/
 /* ********************* Type definitions ( typedef ) *************************/
+typedef struct myFlash{
+	uint32_t	CRCinFlash;
+	uint32_t	LENinFlash;
+	uint32_t	TOTALPages;
+}tFlashLimits;
 /* ***************** Global data declarations ( extern ) **********************/
 /* ***** External parameter / constant declarations ( extern const ) **********/
 /* ********************** Global func/proc prototypes *************************/
-void Spi1Init(void);
-eFUNCTION_RETURN Spi1Transmit(uint8_t *pTxData, uint16_t size);
-eFUNCTION_RETURN Spi1Receive(uint8_t *pRxData, uint16_t size);
-uint8_t Spi1ByteReceived(void);
+/*******************************************************************************/
+void FlashInit(tBSPType BSPType);
+uint8_t FlashWrite(uint8_t* buf, const uint16_t size, const uint16_t pktNo);
+uint8_t FlashErase(void);
+void FlashLock(void);
+uint8_t FlashWriteFWParam(tFIRMWARE_PARAM fwParam);
+uint8_t FlashVerifyFirmware(void);
 
 #endif
+
+/* end of Flash.h */

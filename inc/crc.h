@@ -1,24 +1,22 @@
 /******************************************************************************/
 /**
-* @file Spi1.h
-* @brief Implement SPI1
+* @file CRC.h
+* @brief CRC16 checksum calculator
 *
 *******************************************************************************/
-#ifndef SPI1_H
-#define SPI1_H
+#ifndef CRC_H
+#define CRC_H
 
 /* ***************** Header / include files ( #include ) **********************/
-#include "stm32f0xx.h"
-#include "common.h"
+#include "packet.h"
 
 /* *************** Constant / macro definitions ( #define ) *******************/
 /* ********************* Type definitions ( typedef ) *************************/
 /* ***************** Global data declarations ( extern ) **********************/
 /* ***** External parameter / constant declarations ( extern const ) **********/
 /* ********************** Global func/proc prototypes *************************/
-void Spi1Init(void);
-eFUNCTION_RETURN Spi1Transmit(uint8_t *pTxData, uint16_t size);
-eFUNCTION_RETURN Spi1Receive(uint8_t *pRxData, uint16_t size);
-uint8_t Spi1ByteReceived(void);
+uint16_t CRCCalc16(const uint8_t *data, uint16_t size, uint16_t startVal);
 
 #endif
+
+/* end of CRC.h */

@@ -1,22 +1,30 @@
-/*
- * usart.h
- *
- *  Created on: May 02, 2018
- *      Author: p
- */
+/******************************************************************************/
+/**
+* @file Usart1.h
+* @brief Implement usart1
+*
+*******************************************************************************/
+#ifndef USART_H
+#define USART_H
 
-#ifndef USART_H_
-#define USART_H_
-#include <stdint.h>
-#include "stm32f0xx_usart.h" /** For USART1 */
-#include "stm32f0xx_gpio.h"     /** For RxPin(PA9) and TxPin(PA10) */
-#include "stm32f0xx_rcc.h"
+/* ***************** Header / include files ( #include ) **********************/
+#include "stm32f0xx.h"
+#include "common.h"
+#include "gpio.h"
+#include "bsp.h"
+/* *************** Constant / macro definitions ( #define ) *******************/
+#define __DIV(__PCLK, __BAUD)       ((__PCLK*25)/(4*__BAUD))
+#define __DIVMANT(__PCLK, __BAUD)   (__DIV(__PCLK, __BAUD)/100)
+#define __DIVFRAQ(__PCLK, __BAUD)   (((__DIV(__PCLK, __BAUD) - (__DIVMANT(__PCLK, __BAUD) * 100)) * 16 + 50) / 100)
+#define __USART_BRR(__PCLK, __BAUD) ((__DIVMANT(__PCLK, __BAUD) << 4)|(__DIVFRAQ(__PCLK, __BAUD) & 0x0F))
 
-#define USART_TX_PIN		GPIO_Pin_9
-#define USART_RX_PIN	    GPIO_Pin_10
-
-uint32_t usart_Init(void);
-uint32_t usart_Send(uint8_t* pTxData, uint16_t size);
-uint32_t usart_Reset(void);
-uint32_t usart_Recv(uint8_t* pRxData, uint16_t size);
-#endif /* USART_H_ */
+/* ********************* Type definitions ( typedef ) *************************/
+/* ***************** Global data declarations ( extern ) **********************/
+/* ***** External parameter / constant declarations ( extern const ) **********/
+/* ********************** Global func/proc prototypes *************************/
+void usartInit(tBSPType BSPType);
+void usartSend(uint8_t *pTxData, uint16_t size);
+void usartReset(void);
+eFUNCTION_RETURN usartRecv(uint8_t *pRxData, uint16_t size);
+void usartDeInit(void);
+#endif
