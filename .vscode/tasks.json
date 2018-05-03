@@ -7,6 +7,18 @@
     },
     "tasks": [
         {
+            "label": "DebugServer ST-Link",
+            "type": "shell",
+            "command": "make debug-server",
+            "problemMatcher": []
+        },
+        {
+            "label": "Debug ST-Link",
+            "type": "shell",
+            "command": "make debug",
+            "problemMatcher": []
+        },
+        {
             "label": "Flash ST-Link",
             "type": "shell",
             "command": "make flash",

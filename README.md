@@ -21,3 +21,4 @@ I've used the stflash and sterase function form STLink utilities compiled from .
 The gcc version used is 7.2.1
 
 ## additonal cmake toolchain files
+https://github.com/ryankurte/stm32f4-base/tree/master/toolchain
