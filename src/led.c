@@ -46,6 +46,7 @@ uint32_t led_Init(LEDColorType LED)
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 	GPIO_Init(GPIOx, &led_GPIOTypedef);
 
+    led_OFF(LED);
 	return(retVal);
 }
 uint32_t led_ON(LEDColorType LED)

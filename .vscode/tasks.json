@@ -7,15 +7,9 @@
     },
     "tasks": [
         {
-            "label": "DebugServer ST-Link",
+            "label": "start ST-Util",
             "type": "shell",
-            "command": "make debug-server",
-            "problemMatcher": []
-        },
-        {
-            "label": "Debug ST-Link",
-            "type": "shell",
-            "command": "make debug",
+            "command": "st-util",
             "problemMatcher": []
         },
         {

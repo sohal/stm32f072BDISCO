@@ -21,9 +21,6 @@ uint32_t spi_Init(void)
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1,ENABLE);
 
-    GPIO_PinAFConfig(SPI1_PORT, GPIO_PinSource5, GPIO_AF_0);
-    GPIO_PinAFConfig(SPI1_PORT, GPIO_PinSource6, GPIO_AF_0);
-    GPIO_PinAFConfig(SPI1_PORT, GPIO_PinSource7, GPIO_AF_0);
     //Configure SPI1 pins
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
@@ -115,7 +112,7 @@ uint32_t spi_Recv(uint8_t* pRxData, uint16_t size)
 {
 	uint32_t retVal = 1U;    
 
-	if(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE))
+	if(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == SET)
 	{
 		pRxData[index] = SPI_ReceiveData8(SPI1);
 		index++;
@@ -126,5 +123,5 @@ uint32_t spi_Recv(uint8_t* pRxData, uint16_t size)
 		index = 0;
 		retVal = 0U;
 	}
-  return retVal;
+    return retVal;
 }
